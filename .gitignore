@@ -30,3 +30,7 @@ coverage
 *.tsbuildinfo
 
 .env
+
+.vscode/
+.firebase
+cooking-platform-palmo
