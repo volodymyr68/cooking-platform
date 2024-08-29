@@ -2,7 +2,7 @@
 import SaveRecipeButton from "@/components/protected/buttons/SaveRecipeButton.vue";
 import RemoveRecipeButton from "@/components/protected/buttons/RemoveRecipeButton.vue";
 import OpenDetailsButton from "@/components/protected/buttons/OpenDetailsButton.vue";
-import {mapActions, mapState} from "pinia";
+import { mapActions, mapState } from "pinia";
 import { useApiStore } from "@/stores/apiStore.js";
 
 export default {
@@ -26,52 +26,48 @@ export default {
     removeButton: {
       type: Boolean,
       default: false,
-    }
+    },
   },
   computed: {
-    ...mapState(useApiStore,["mealDetails"]),
+    ...mapState(useApiStore, ["mealDetails"]),
     ingredients() {
       return Array.from({ length: 20 }, (_, i) => i + 1)
-          .map(i => ({
+          .map((i) => ({
             name: this.meal[`strIngredient${i}`],
             measure: this.meal[`strMeasure${i}`],
           }))
-          .filter(ingredient => ingredient.name && ingredient.name.trim());
+          .filter((ingredient) => ingredient.name && ingredient.name.trim());
     },
   },
   methods: {
     ...mapActions(useApiStore, ["fetchRecipeById"]),
 
     async handleOpenDetails() {
-        const response = await this.fetchRecipeById(this.meal.idMeal);
-        console.log(response)
-          this.details = this.mealDetails;
-          console.log("details", this.details);
-          this.showDetails = true;
+      const response = await this.fetchRecipeById(this.meal.idMeal);
+      console.log(response);
+      this.details = this.mealDetails;
+      console.log("details", this.details);
+      this.showDetails = true;
     },
     closeDetails() {
       this.showDetails = false;
-    }
+    },
   },
 };
 </script>
 
 <template>
   <v-card class="meal-card">
-    <v-img
-        :src="meal.strMealThumb"
-        class="meal-img"
-        alt="Meal Image"
-    ></v-img>
+    <v-img :src="meal.strMealThumb" class="meal-img" alt="Meal Image"></v-img>
 
     <v-card-title class="meal-title">
       {{ meal.strMeal }}
     </v-card-title>
 
     <v-card-actions class="meal-actions">
-      <SaveRecipeButton v-if="saveButton" :recipe="meal"/>
-      <RemoveRecipeButton v-if="removeButton" :recipe="meal"/>
-      <OpenDetailsButton :id="meal.idMeal" @open-details="handleOpenDetails"/>
+      <SaveRecipeButton v-if="saveButton" :recipe="meal" />
+      <RemoveRecipeButton v-if="removeButton" :recipe="meal" />
+      <OpenDetailsButton :id="meal.idMeal" @open-details="handleOpenDetails" />
     </v-card-actions>
 
     <v-dialog v-if="showDetails" v-model="showDetails" max-width="500">
@@ -80,7 +76,11 @@ export default {
           <span class="headline">{{ details.strMeal }}</span>
         </v-card-title>
         <v-card-text>
-          <v-img :src="details.strMealThumb" height="200px" class="mb-4"></v-img>
+          <v-img
+              :src="details.strMealThumb"
+              height="200px"
+              class="mb-4"
+          ></v-img>
           <p><strong>Category:</strong> {{ details.strCategory }}</p>
           <p><strong>Area:</strong> {{ details.strArea }}</p>
           <p><strong>Instructions:</strong> {{ details.strInstructions }}</p>
@@ -126,7 +126,10 @@ export default {
   object-fit: cover;
 }
 
-.meal-title, .meal-subtitle, .meal-text, .meal-actions {
+.meal-title,
+.meal-subtitle,
+.meal-text,
+.meal-actions {
   width: 100%;
   text-align: center;
 }

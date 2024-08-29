@@ -34,3 +34,4 @@ coverage
 .vscode/
 .firebase
 cooking-platform-palmo
+node_modules/

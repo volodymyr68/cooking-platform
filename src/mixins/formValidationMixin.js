@@ -8,8 +8,8 @@ export default {
                 lastNameErrors: [],
                 emailErrors: [],
                 passwordErrors: [],
-                confirmPasswordErrors: []
-            }
+                confirmPasswordErrors: [],
+            },
         };
     },
     methods: {
@@ -52,7 +52,7 @@ export default {
                 !/[a-z]/.test(password) ||
                 !/[A-Z]/.test(password) ||
                 !/[0-9]/.test(password) ||
-                !/[!@#$%^&*(),.?":{}|<>_\-\\[\]\/+=`~;']/ .test(password)
+                !/[!@#$%^&*(),.?":{}|<>_\-\\[\]\/+=`~;']/.test(password)
             ) {
                 this.errors.passwordErrors.push(ERRORS.PASSWORD_FORMAT);
             }
@@ -62,6 +62,6 @@ export default {
             if (password !== confirmPassword) {
                 this.errors.confirmPasswordErrors.push(ERRORS.CONFIRM_PASSWORD_MATCH);
             }
-        }
-    }
+        },
+    },
 };

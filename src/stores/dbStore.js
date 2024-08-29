@@ -1,12 +1,19 @@
 import { defineStore } from "pinia";
 import useUserStore from "@/stores/userStore.js";
-import { collection, addDoc, query as firestoreQuery, where, getDocs,getDoc } from "firebase/firestore";
+import {
+    collection,
+    addDoc,
+    query as firestoreQuery,
+    where,
+    getDocs,
+    getDoc,
+} from "firebase/firestore";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@/main.js";
 
 export const useDbStore = defineStore("dbStore", {
     state: () => ({
-        forumRecords: ""
+        forumRecords: "",
     }),
     actions: {
         async createUser() {
@@ -17,8 +24,8 @@ export const useDbStore = defineStore("dbStore", {
                     lastName: userStore.lastName,
                     email: userStore.email,
                     uid: userStore.uid,
-                    categories:[],
-                    areas:[],
+                    categories: [],
+                    areas: [],
                     ingredients: [],
                     recipes: [],
                 });
@@ -28,7 +35,10 @@ export const useDbStore = defineStore("dbStore", {
         },
         async getUserById() {
             const userStore = useUserStore();
-            const q = firestoreQuery(collection(db, "users"), where("uid", "==", userStore.uid));
+            const q = firestoreQuery(
+                collection(db, "users"),
+                where("uid", "==", userStore.uid),
+            );
 
             const userSnapshot = await getDocs(q);
             userSnapshot.forEach((doc) => {
@@ -42,9 +52,17 @@ export const useDbStore = defineStore("dbStore", {
                 userStore.id = doc.id;
             });
         },
-        async updateUserById(categories=[], areas=[], ingredients=[],recipes=[]) {
+        async updateUserById(
+            categories = [],
+            areas = [],
+            ingredients = [],
+            recipes = [],
+        ) {
             const userStore = useUserStore();
-            const docRef = doc(db, 'users', userStore.id);
+            if (recipes.length === 0) {
+                recipes = userStore.recipes;
+            }
+            const docRef = doc(db, "users", userStore.id);
             try {
                 await updateDoc(docRef, {
                     firstName: userStore.firstName,
@@ -53,17 +71,19 @@ export const useDbStore = defineStore("dbStore", {
                     categories: categories,
                     areas: areas,
                     ingredients: ingredients,
-                    recipes: recipes
+                    recipes: recipes,
                 });
                 await this.getUserById();
             } catch (e) {
                 console.log(e);
             }
         },
-       async deleteUserRecipe(recipe){
+        async deleteUserRecipe(recipe) {
             const userStore = useUserStore();
-            const updatedRecipes = userStore.recipes.filter(item => item.idMeal !== recipe.idMeal);
-            const docRef = doc(db, 'users', userStore.id);
+            const updatedRecipes = userStore.recipes.filter(
+                (item) => item.idMeal !== recipe.idMeal,
+            );
+            const docRef = doc(db, "users", userStore.id);
             try {
                 await updateDoc(docRef, {
                     firstName: userStore.firstName,
@@ -72,7 +92,7 @@ export const useDbStore = defineStore("dbStore", {
                     categories: userStore.selectedCategories,
                     areas: userStore.selectedAreas,
                     ingredients: userStore.selectedIngredients,
-                    recipes: updatedRecipes
+                    recipes: updatedRecipes,
                 });
                 await this.getUserById();
             } catch (e) {
@@ -83,7 +103,7 @@ export const useDbStore = defineStore("dbStore", {
             try {
                 const docRef = await addDoc(collection(db, "forum"), {
                     text: text,
-                    time: new Date()
+                    time: new Date(),
                 });
                 console.log("Document written with ID: ", docRef.id);
             } catch (e) {
@@ -94,11 +114,21 @@ export const useDbStore = defineStore("dbStore", {
         async getForumRecords() {
             try {
                 const querySnapshot = await getDocs(collection(db, "forum"));
-                this.forumRecords = querySnapshot.docs.map(doc => doc.data());
+                this.forumRecords = querySnapshot.docs.map((doc) => doc.data());
                 console.log("Forum records: ", this.forumRecords);
+                this.sortForumRecordsByTime();
             } catch (e) {
                 console.error("Error getting documents: ", e);
             }
-        }
+        },
+        sortForumRecordsByTime() {
+            this.forumRecords = this.forumRecords.sort((a, b) => {
+                if (a.time.seconds === b.time.seconds) {
+                    return b.time.nanoseconds - a.time.nanoseconds;
+                } else {
+                    return b.time.seconds - a.time.seconds;
+                }
+            });
+        },
     },
 });

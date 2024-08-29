@@ -1,12 +1,16 @@
-import {createUserWithEmailAndPassword ,signInWithEmailAndPassword,signOut} from "firebase/auth"
-import {mapActions} from "pinia";
+import {
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    signOut,
+} from "firebase/auth";
+import { mapActions } from "pinia";
 import useUserStore from "@/stores/userStore.js";
-import {useDbStore} from "@/stores/dbStore.js";
+import { useDbStore } from "@/stores/dbStore.js";
 export default {
-    methods:{
-        ...mapActions(useUserStore,["toggleLogin","setUID"]),
-        ...mapActions(useDbStore,["createUser"]),
-        signUp(auth,email,password){
+    methods: {
+        ...mapActions(useUserStore, ["toggleLogin", "setUID"]),
+        ...mapActions(useDbStore, ["createUser"]),
+        signUp(auth, email, password) {
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     const user = userCredential.user;
@@ -14,15 +18,14 @@ export default {
                     this.toggleLogin();
                     this.createUser();
                     this.$router.push("/auth-content");
-
                 })
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    console.log(errorMessage)
+                    console.log(errorMessage);
                 });
         },
-        singIn(auth, email, password){
+        singIn(auth, email, password) {
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     // Signed in
@@ -34,16 +37,18 @@ export default {
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    console.log(errorMessage)
+                    console.log(errorMessage);
                 });
         },
-        logOut(auth){
-            signOut(auth).then(() => {
-                this.$router.push("/");
-                this.toggleLogin();
-            }).catch((error) => {
-                console.log(error)
-            });
-        }
-    }
-}
+        logOut(auth) {
+            signOut(auth)
+                .then(() => {
+                    this.$router.push("/");
+                    this.toggleLogin();
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        },
+    },
+};

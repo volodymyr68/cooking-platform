@@ -1,5 +1,5 @@
 <script>
-import "../../styles/protected/AuthMain.css"
+import "../../styles/protected/AuthMain.css";
 import ProtectedNavigation from "@/components/protected/pages/ProtectedNavigation.vue";
 import ProtectedMain from "@/components/protected/pages/ProtectedMain.vue";
 import RandomMeal from "@/components/protected/pages/RandomMeal.vue";
@@ -10,39 +10,56 @@ import Forum from "@/components/protected/pages/Forum.vue";
 
 export default {
   name: "AuthContent",
-  components: {Forum, RecipeFeed, UserRecipes, UserPreferences, RandomMeal, ProtectedMain, ProtectedNavigation},
+  components: {
+    Forum,
+    RecipeFeed,
+    UserRecipes,
+    UserPreferences,
+    RandomMeal,
+    ProtectedMain,
+    ProtectedNavigation,
+  },
   data() {
     return {
       currentView: "Profile",
     };
   },
+  props: {
+    homeView: {
+      type: String,
+      default: "Profile",
+    },
+  },
   methods: {
     updateView(view) {
       this.currentView = view;
-    }
-  }
-}
+    },
+  },
+  created() {
+    this.currentView = this.homeView;
+  },
+};
 </script>
 
 <template>
   <v-card class="wrapper">
     <v-layout class="layout">
-      <ProtectedNavigation @update-view="updateView"/>
+      <ProtectedNavigation @update-view="updateView" />
       <ProtectedMain :current-view="currentView">
         <template v-slot:Profile>
-          <UserPreferences/>
+          <UserPreferences />
         </template>
         <template v-slot:RecipeFeed>
-          <RecipeFeed/>
+          <RecipeFeed />
         </template>
         <template v-slot:Forum>
-          <Forum/>
+          <Forum />
         </template>
         <template v-slot:RandMeal>
-          <RandomMeal/>
+          <RandomMeal />
         </template>
         <template v-slot:Recipes>
-          <UserRecipes/>
+          <UserRecipes />
         </template>
       </ProtectedMain>
     </v-layout>

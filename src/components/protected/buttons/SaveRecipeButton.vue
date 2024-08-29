@@ -1,25 +1,35 @@
 <script>
-import {mapActions, mapState} from "pinia";
+import { mapActions, mapState } from "pinia";
 import useUserStore from "@/stores/userStore.js";
-import {useDbStore} from "@/stores/dbStore.js";
+import { useDbStore } from "@/stores/dbStore.js";
 
 export default {
   name: "SaveRecipeButton",
-  props:{
-        recipe: {type: Object, required: true}
+  props: {
+    recipe: { type: Object, required: true },
   },
-  computed:{
-    ...mapState(useUserStore,["recipes","selectedCategories","selectedAreas","selectedIngredients"]),
+  computed: {
+    ...mapState(useUserStore, [
+      "recipes",
+      "selectedCategories",
+      "selectedAreas",
+      "selectedIngredients",
+    ]),
   },
-  methods:{
-    ...mapActions(useDbStore,["updateUserById"]),
-    ...mapActions(useUserStore,["setRecipes"]),
-    saveRecipe(){
+  methods: {
+    ...mapActions(useDbStore, ["updateUserById"]),
+    ...mapActions(useUserStore, ["setRecipes"]),
+    saveRecipe() {
       this.setRecipes(this.recipe);
-      this.updateUserById(this.selectedCategories, this.selectedAreas, this.selectedIngredients, this.recipes);
-    }
-  }
-}
+      this.updateUserById(
+          this.selectedCategories,
+          this.selectedAreas,
+          this.selectedIngredients,
+          this.recipes,
+      );
+    },
+  },
+};
 </script>
 
 <template>

@@ -1,4 +1,4 @@
-import { defineStore } from 'pinia';
+import { defineStore } from "pinia";
 
 const useUserStore = defineStore("userStore", {
     state: () => ({
@@ -8,41 +8,41 @@ const useUserStore = defineStore("userStore", {
         password: "",
         confirmPassword: "",
         isLoggedIn: false,
-        uid:"",
-        selectedIngredients:[],
-        selectedCategories:[],
-        selectedAreas:[],
-        recipes:[],
-        id:""
+        uid: "",
+        selectedIngredients: [],
+        selectedCategories: [],
+        selectedAreas: [],
+        recipes: [],
+        id: "",
     }),
     getters: {
         getFullName: (state) => `${state.firstName} ${state.lastName}`,
     },
-    actions:{
-        setLogin(){
+    actions: {
+        setLogin() {
             this.isLoggedIn = false;
         },
-        setUID(uid){
+        setUID(uid) {
             this.uid = uid;
         },
-        setRecipes(recipe){
+        setRecipes(recipe) {
             this.recipes.push(recipe);
         },
-        toggleLogin(){
-            this.isLoggedIn =!this.isLoggedIn;
-            if(!this.isLoggedIn){
-                this.firstName ="";
-                this.lastName ="";
-                this.email ="";
-                this.password ="";
-                this.confirmPassword ="";
-                this.selectedIngredients=[];
-                this.selectedCategories=[];
-                this.selectedAreas=[];
+        toggleLogin() {
+            this.isLoggedIn = !this.isLoggedIn;
+            if (!this.isLoggedIn) {
+                this.firstName = "";
+                this.lastName = "";
+                this.email = "";
+                this.password = "";
+                this.confirmPassword = "";
+                this.selectedIngredients = [];
+                this.selectedCategories = [];
+                this.selectedAreas = [];
                 this.uid = "";
             }
-        }
-    }
+        },
+    },
 });
 
 export default useUserStore;

@@ -3,17 +3,17 @@ import "../../styles/auth/auth.css";
 import { mapWritableState } from "pinia";
 import useUserStore from "@/stores/userStore.js";
 import formValidationMixin from "@/mixins/formValidationMixin.js";
-import {auth} from "@/main.js";
+import { auth } from "@/main.js";
 import authMixin from "@/mixins/authMixin.js";
 
 export default {
   name: "SignIn",
-  mixins: [formValidationMixin,authMixin],
+  mixins: [formValidationMixin, authMixin],
   computed: {
-    ...mapWritableState(useUserStore, ["userStore","email", "password"]),
+    ...mapWritableState(useUserStore, ["userStore", "email", "password"]),
   },
   methods: {
-      handleSubmit() {
+    handleSubmit() {
       this.errors.emailErrors = [];
       this.errors.passwordErrors = [];
 
@@ -24,7 +24,7 @@ export default {
           this.errors.emailErrors.length === 0 &&
           this.errors.passwordErrors.length === 0
       ) {
-        this.singIn(auth,this.email,this.password);
+        this.singIn(auth, this.email, this.password);
       }
     },
   },
@@ -53,7 +53,9 @@ export default {
                   required
                   :error-messages="errors.passwordErrors"
               />
-              <v-btn class="auth-btn" color="primary" type="submit" block>Sign In</v-btn>
+              <v-btn class="auth-btn" color="primary" type="submit" block
+              >Sign In</v-btn
+              >
               <v-btn color="secondary" to="/" block>Cancel</v-btn>
             </v-form>
           </v-card-text>

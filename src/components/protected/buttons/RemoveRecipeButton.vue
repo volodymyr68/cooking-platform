@@ -1,24 +1,29 @@
 <script>
-import {mapActions, mapState} from "pinia";
+import { mapActions, mapState } from "pinia";
 import useUserStore from "@/stores/userStore.js";
-import {useDbStore} from "@/stores/dbStore.js";
+import { useDbStore } from "@/stores/dbStore.js";
 
 export default {
   name: "RemoveRecipeButton",
-  props:{
-    recipe: {type: Object, required: true}
+  props: {
+    recipe: { type: Object, required: true },
   },
-  computed:{
-    ...mapState(useUserStore,["recipes","selectedCategories","selectedAreas","selectedIngredients"])
+  computed: {
+    ...mapState(useUserStore, [
+      "recipes",
+      "selectedCategories",
+      "selectedAreas",
+      "selectedIngredients",
+    ]),
   },
-  methods:{
-    ...mapActions(useDbStore,["deleteUserRecipe"]),
-    ...mapActions(useUserStore,["setRecipes"]),
-    deleteRecipe(){
+  methods: {
+    ...mapActions(useDbStore, ["deleteUserRecipe"]),
+    ...mapActions(useUserStore, ["setRecipes"]),
+    deleteRecipe() {
       this.deleteUserRecipe(this.recipe);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <template>

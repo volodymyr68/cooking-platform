@@ -14,18 +14,31 @@ export default {
     };
   },
   computed: {
-    ...mapState(useUserStore, ["getFullName", "selectedCategories", "selectedAreas", "selectedIngredients"]),
+    ...mapState(useUserStore, [
+      "getFullName",
+      "selectedCategories",
+      "selectedAreas",
+      "selectedIngredients",
+    ]),
     ...mapState(useApiStore, ["categories", "areas", "ingredients"]),
   },
   methods: {
-    ...mapActions(useApiStore, ["fetchCategories", "fetchAreas", "fetchIngredients"]),
+    ...mapActions(useApiStore, [
+      "fetchCategories",
+      "fetchAreas",
+      "fetchIngredients",
+    ]),
     ...mapActions(useDbStore, ["getUserById", "updateUserById"]),
     savePreferences() {
-      this.updateUserById(this.formSelectedCategories,this.formSelectedAreas, this.formSelectedIngredients,);
+      this.updateUserById(
+          this.formSelectedCategories,
+          this.formSelectedAreas,
+          this.formSelectedIngredients,
+      );
     },
     initializePreferences() {
-      this.formSelectedCategories =  this.selectedCategories;
-      this.formSelectedIngredients = this.selectedIngredients
+      this.formSelectedCategories = this.selectedCategories;
+      this.formSelectedIngredients = this.selectedIngredients;
       this.formSelectedAreas = this.selectedAreas;
     },
   },
@@ -40,7 +53,7 @@ export default {
 </script>
 
 <template>
-  <v-card-title>Hello {{getFullName}}</v-card-title>
+  <v-card-title>Hello {{ getFullName }}</v-card-title>
   <v-container fluid class="pa-4">
     <v-card class="pa-4">
       <v-card-title>Customize Your Preferences</v-card-title>
@@ -85,6 +98,4 @@ export default {
   </v-container>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

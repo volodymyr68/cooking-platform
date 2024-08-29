@@ -1,14 +1,14 @@
 <script>
 import "../../styles/auth/auth.css";
-import {mapState, mapWritableState} from "pinia";
+import { mapState, mapWritableState } from "pinia";
 import useUserStore from "@/stores/userStore.js";
 import formValidationMixin from "@/mixins/formValidationMixin.js";
-import {auth} from "@/main.js";
+import { auth } from "@/main.js";
 import authMixin from "@/mixins/authMixin.js";
 
 export default {
   name: "SignUp",
-  mixins: [formValidationMixin,authMixin],
+  mixins: [formValidationMixin, authMixin],
   computed: {
     ...mapWritableState(useUserStore, [
       "userStore",
@@ -18,10 +18,10 @@ export default {
       "password",
       "confirmPassword",
     ]),
-    ...mapState(useUserStore,["getFullName"])
+    ...mapState(useUserStore, ["getFullName"]),
   },
   methods: {
-      handleSubmit() {
+    handleSubmit() {
       this.errors.firstNameErrors = [];
       this.errors.lastNameErrors = [];
       this.errors.emailErrors = [];
@@ -41,8 +41,8 @@ export default {
           this.errors.passwordErrors.length === 0 &&
           this.errors.confirmPasswordErrors.length === 0
       ) {
-         this.signUp(auth,this.email,this.password);
-         // this.createUser(localStorage.getItem("userId"),this.firstName,this.email,this.password);
+        this.signUp(auth, this.email, this.password);
+        // this.createUser(localStorage.getItem("userId"),this.firstName,this.email,this.password);
       }
     },
   },
@@ -90,7 +90,10 @@ export default {
                   required
                   :error-messages="errors.confirmPasswordErrors"
               />
-              <v-btn class="auth-btn" color="primary" type="submit" block>Sign Up</v-btn>
+              <v-btn class="auth-btn" color="primary" type="submit" block
+              >Sign Up
+              </v-btn
+              >
               <v-btn color="secondary" to="/" block>Cancel</v-btn>
             </v-form>
           </v-card-text>

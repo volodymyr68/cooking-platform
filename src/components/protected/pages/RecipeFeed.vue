@@ -26,13 +26,20 @@ export default {
       return Math.ceil(this.allMeal.length / this.itemsPerPage);
     },
     visiblePages() {
-      const start = Math.max(1, this.currentPage - Math.floor(this.maxVisiblePages / 2));
+      const start = Math.max(
+          1,
+          this.currentPage - Math.floor(this.maxVisiblePages / 2),
+      );
       const end = Math.min(start + this.maxVisiblePages - 1, this.totalPages);
       return Array.from({ length: end - start + 1 }, (_, i) => start + i);
-    }
+    },
   },
   methods: {
-    ...mapActions(useApiStore, ["fetchMealByCategory", "fetchMealByArea", "fetchMealByMainIngredient"]),
+    ...mapActions(useApiStore, [
+      "fetchMealByCategory",
+      "fetchMealByArea",
+      "fetchMealByMainIngredient",
+    ]),
 
     goToPage(pageNumber) {
       this.currentPage = pageNumber;
@@ -57,33 +64,39 @@ export default {
         ...this.ingredientsMeal.flat(),
         ...this.areasMeal.flat(),
       ];
-    }
+    },
   },
   async created() {
     await this.loadAllMeals();
-  }
-}
+  },
+};
 </script>
 
 <template>
   <div class="container" v-if="paginatedMeals.length">
-    <MealCard v-for="meal in paginatedMeals"
-              :key="meal.idMeal"
-              :save-button="true"
-              :remove-button="false"
-              :meal="meal"/>
+    <MealCard
+        v-for="meal in paginatedMeals"
+        :key="meal.idMeal"
+        :save-button="true"
+        :remove-button="false"
+        :meal="meal"
+    />
 
     <div class="pagination">
       <button @click="prevPage" :disabled="currentPage === 1">Previous</button>
 
-      <button v-for="page in visiblePages"
-              :key="page"
-              @click="goToPage(page)"
-              :class="{ active: page === currentPage }">
+      <button
+          v-for="page in visiblePages"
+          :key="page"
+          @click="goToPage(page)"
+          :class="{ active: page === currentPage }"
+      >
         {{ page }}
       </button>
 
-      <button @click="nextPage" :disabled="currentPage === totalPages">Next</button>
+      <button @click="nextPage" :disabled="currentPage === totalPages">
+        Next
+      </button>
     </div>
   </div>
   <div v-else>

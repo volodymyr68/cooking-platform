@@ -16,15 +16,19 @@ export const useApiStore = defineStore("apiStore", {
     actions: {
         async fetchCategories() {
             const response = await axiosInstance.get("list.php?c=list");
-            this.categories = response.data.meals.map(category => category.strCategory);
+            this.categories = response.data.meals.map(
+                (category) => category.strCategory,
+            );
         },
         async fetchAreas() {
             const response = await axiosInstance.get("list.php?a=list");
-            this.areas = response.data.meals.map(area => area.strArea);
+            this.areas = response.data.meals.map((area) => area.strArea);
         },
         async fetchIngredients() {
             const response = await axiosInstance.get("list.php?i=list");
-            this.ingredients = response.data.meals.map(ingredient => ingredient.strIngredient);
+            this.ingredients = response.data.meals.map(
+                (ingredient) => ingredient.strIngredient,
+            );
         },
         async fetchMealByCategory() {
             const userStore = useUserStore();
@@ -58,11 +62,11 @@ export const useApiStore = defineStore("apiStore", {
         },
         async randomMeal() {
             const response = await axiosInstance.get(`/random.php`);
-            this.meals = response.data.meals;
+            return response.data.meals[0];
         },
-        async fetchRecipeById(id){
+        async fetchRecipeById(id) {
             const response = await axiosInstance.get(`/lookup.php?i=${id}`);
             this.mealDetails = response.data.meals[0];
-        }
+        },
     },
 });

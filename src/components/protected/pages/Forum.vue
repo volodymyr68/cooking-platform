@@ -6,23 +6,23 @@ export default {
   name: "Forum",
   data() {
     return {
-      text: ""
+      text: "",
     };
   },
   computed: {
-    ...mapState(useDbStore, ["forumRecords"])
+    ...mapState(useDbStore, ["forumRecords"]),
   },
   methods: {
     ...mapActions(useDbStore, ["getForumRecords", "createForumRecord"]),
     addRecord() {
-      this.createForumRecord({ text: this.text });
+      this.createForumRecord({text: this.text});
       this.text = "";
       this.getForumRecords();
-    }
+    },
   },
   created() {
     this.getForumRecords();
-  }
+  },
 };
 </script>
 
@@ -51,12 +51,25 @@ export default {
         <v-card class="pa-5">
           <v-card-title>Forum Records</v-card-title>
           <v-card-text>
-            <v-list>
-              <v-list-item v-for="(record, index) in forumRecords" :key="index">
-                  <v-list-item-title>{{ record.text.text }}</v-list-item-title>
-                  <v-list-item-subtitle>{{ new Date(record.time.seconds * 1000).toLocaleString() }}</v-list-item-subtitle>
-              </v-list-item>
-            </v-list>
+            <v-container class="forum-container">
+              <v-row>
+                <v-col
+                    cols="12"
+                    v-for="(record, index) in forumRecords"
+                    :key="index"
+                >
+                  <v-card class="message-card pa-3" elevation="2">
+                    <v-card-subtitle>{{
+                        new Date(record.time.seconds * 1000).toLocaleString()
+                      }}
+                    </v-card-subtitle>
+                    <v-card-text class="message-text">
+                      {{ record.text.text }}
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+              </v-row>
+            </v-container>
           </v-card-text>
         </v-card>
       </v-col>
@@ -65,4 +78,13 @@ export default {
 </template>
 
 <style scoped>
+.forum-container {
+  max-height: 450px;
+  width: 100%;
+  overflow-y: auto;
+}
+
+.message-card {
+  margin-bottom: 10px;
+}
 </style>

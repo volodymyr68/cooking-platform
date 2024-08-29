@@ -60,6 +60,7 @@ auth.onAuthStateChanged((user) => {
             el.addEventListener('mouseenter', () => {
                 el.style.backgroundColor = `rgba(255, 255, 255, ${opacity})`;
                 el.style.borderRadius = '4px';
+                el.style.cursor = 'pointer';
             });
             el.addEventListener('mouseleave', () => {
                 el.style.backgroundColor = '';
