@@ -1,0 +1,32 @@
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 40px 0;
+}
+
+.footer-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.footer-subtitle {
+    font-size: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.footer-text {
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+.footer-bottom-text {
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+v-divider {
+    margin: 20px 0;
+    background-color: #444;
+}

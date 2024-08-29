@@ -1,0 +1,15 @@
+.sign-in-form {
+    margin-top: 100px;
+}
+
+v-card-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+v-btn {
+    margin-top: 20px;
+}
+.auth-btn{
+    margin-bottom: 20px;
+}
