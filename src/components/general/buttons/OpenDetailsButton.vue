@@ -1,6 +1,7 @@
 <script>
 export default {
   name: "OpenDetailsButton",
+  emits: ["toggleSave", "open-details"],
   props: {
     id: {
       type: String,

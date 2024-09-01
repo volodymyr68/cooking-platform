@@ -28,7 +28,6 @@ export default {
         singIn(auth, email, password) {
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    // Signed in
                     const user = userCredential.user;
                     this.setUID(user.uid);
                     this.toggleLogin();

@@ -15,7 +15,7 @@ export default {
   methods: {
     ...mapActions(useDbStore, ["getForumRecords", "createForumRecord"]),
     addRecord() {
-      this.createForumRecord({text: this.text});
+      this.createForumRecord({ text: this.text });
       this.text = "";
       this.getForumRecords();
     },
@@ -58,8 +58,9 @@ export default {
                     v-for="(record, index) in forumRecords"
                     :key="index"
                 >
-                  <v-card class="message-card pa-3" elevation="2">
-                    <v-card-subtitle>{{
+                  <v-card class="forum-message-card pa-3" elevation="2">
+                    <v-card-subtitle
+                    >{{
                         new Date(record.time.seconds * 1000).toLocaleString()
                       }}
                     </v-card-subtitle>
@@ -76,15 +77,3 @@ export default {
     </v-row>
   </v-container>
 </template>
-
-<style scoped>
-.forum-container {
-  max-height: 450px;
-  width: 100%;
-  overflow-y: auto;
-}
-
-.message-card {
-  margin-bottom: 10px;
-}
-</style>

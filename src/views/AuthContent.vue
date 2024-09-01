@@ -1,12 +1,13 @@
 <script>
-import "../../styles/protected/AuthMain.css";
-import ProtectedNavigation from "@/components/protected/pages/ProtectedNavigation.vue";
-import ProtectedMain from "@/components/protected/pages/ProtectedMain.vue";
-import RandomMeal from "@/components/protected/pages/RandomMeal.vue";
-import UserPreferences from "@/components/protected/pages/UserPreferences.vue";
-import UserRecipes from "@/components/protected/pages/UserRecipes.vue";
-import RecipeFeed from "@/components/protected/pages/RecipeFeed.vue";
-import Forum from "@/components/protected/pages/Forum.vue";
+import Forum from "@/components/protected-pages/Forum.vue";
+import RecipeFeed from "@/components/protected-pages/RecipeFeed.vue";
+import UserRecipes from "@/components/protected-pages/UserRecipes.vue";
+import UserPreferences from "@/components/protected-pages/UserPreferences.vue";
+import RandomMeal from "@/components/protected-pages/RandomMeal.vue";
+import ProtectedMain from "@/components/protected-pages/ProtectedMain.vue";
+import ProtectedNavigation from "@/components/protected-pages/ProtectedNavigation.vue";
+import { mapActions } from "pinia";
+import { useDbStore } from "@/stores/dbStore.js";
 
 export default {
   name: "AuthContent",
@@ -31,19 +32,21 @@ export default {
     },
   },
   methods: {
+    ...mapActions(useDbStore, ["getUserById"]),
     updateView(view) {
       this.currentView = view;
     },
   },
-  created() {
+  async created() {
     this.currentView = this.homeView;
+    await this.getUserById();
   },
 };
 </script>
 
 <template>
-  <v-card class="wrapper">
-    <v-layout class="layout">
+  <v-card class="auth-main-wrapper">
+    <v-layout class="auth-main-layout">
       <ProtectedNavigation @update-view="updateView" />
       <ProtectedMain :current-view="currentView">
         <template v-slot:Profile>

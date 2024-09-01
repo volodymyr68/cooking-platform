@@ -1,5 +1,4 @@
 <script>
-import "../../styles/home/home-view.css";
 import TailorRecipes from "@/assets/TailorRecipes.png";
 
 export default {
@@ -21,14 +20,14 @@ export default {
 </script>
 
 <template>
-  <v-main class="main">
+  <v-main class="home-main">
     <v-container>
       <v-row class="text-center">
         <v-col>
-          <h1 class="display-1 font-weight-bold">
+          <h1 class="home-display font-weight-bold">
             Welcome to Culinary Inspirations
           </h1>
-          <p class="subtitle-1 mt-4">
+          <p class="home-subtitle mt-4">
             Discover new recipes, tailor your meals to your preferences, and
             share your culinary creations with our community!
           </p>
@@ -41,7 +40,7 @@ export default {
             @click="navigateToAuthContent('Profile')"
             v-hover="0.9"
         >
-          <v-card class="pa-5" elevation="2">
+          <v-card class="home-card pa-5" elevation="2">
             <v-img
                 :src="TailorRecipes"
                 alt="Tailored Recipes"

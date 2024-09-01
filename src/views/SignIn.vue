@@ -1,5 +1,4 @@
 <script>
-import "../../styles/auth/auth.css";
 import { mapWritableState } from "pinia";
 import useUserStore from "@/stores/userStore.js";
 import formValidationMixin from "@/mixins/formValidationMixin.js";
@@ -36,7 +35,9 @@ export default {
     <v-row justify="center">
       <v-col cols="12" md="6">
         <v-card class="pa-5" elevation="3">
-          <v-card-title class="headline text-center">Sign In</v-card-title>
+          <v-card-title class="auth-title headline text-center"
+          >Sign In</v-card-title
+          >
           <v-card-text>
             <v-form name="signInForm" @submit.prevent="handleSubmit">
               <v-text-field
@@ -56,7 +57,9 @@ export default {
               <v-btn class="auth-btn" color="primary" type="submit" block
               >Sign In</v-btn
               >
-              <v-btn color="secondary" to="/" block>Cancel</v-btn>
+              <v-btn class="auth-btn" color="secondary" to="/" block
+              >Cancel</v-btn
+              >
             </v-form>
           </v-card-text>
         </v-card>

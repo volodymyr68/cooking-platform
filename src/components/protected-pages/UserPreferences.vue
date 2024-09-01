@@ -3,14 +3,17 @@ import { mapActions, mapState } from "pinia";
 import { useApiStore } from "@/stores/apiStore.js";
 import { useDbStore } from "@/stores/dbStore.js";
 import useUserStore from "@/stores/userStore.js";
+import RingLoader from "vue-spinner/src/MoonLoader.vue";
 
 export default {
   name: "UserPreferences",
+  components: { RingLoader },
   data() {
     return {
       formSelectedCategories: [],
       formSelectedIngredients: [],
       formSelectedAreas: [],
+      isLoaded: false,
     };
   },
   computed: {
@@ -23,11 +26,7 @@ export default {
     ...mapState(useApiStore, ["categories", "areas", "ingredients"]),
   },
   methods: {
-    ...mapActions(useApiStore, [
-      "fetchCategories",
-      "fetchAreas",
-      "fetchIngredients",
-    ]),
+    ...mapActions(useApiStore, ["fetchMealData"]),
     ...mapActions(useDbStore, ["getUserById", "updateUserById"]),
     savePreferences() {
       this.updateUserById(
@@ -42,19 +41,19 @@ export default {
       this.formSelectedAreas = this.selectedAreas;
     },
   },
-  async created() {
-    await this.fetchCategories();
-    await this.fetchAreas();
-    await this.fetchIngredients();
-    await this.getUserById();
+  async mounted() {
+    this.isLoaded = false;
+    await this.fetchMealData();
     this.initializePreferences();
+    this.isLoaded = true;
   },
 };
 </script>
 
 <template>
-  <v-card-title>Hello {{ getFullName }}</v-card-title>
-  <v-container fluid class="pa-4">
+  <RingLoader :loading="!isLoaded" color="black" size="100px"></RingLoader>
+  <v-container fluid class="pa-4" v-if="isLoaded">
+    <v-card-title>Hello {{ getFullName }}</v-card-title>
     <v-card class="pa-4">
       <v-card-title>Customize Your Preferences</v-card-title>
       <v-card-text>
@@ -97,5 +96,3 @@ export default {
     </v-card>
   </v-container>
 </template>
-
-<style scoped></style>

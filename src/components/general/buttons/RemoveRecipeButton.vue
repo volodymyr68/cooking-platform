@@ -8,6 +8,7 @@ export default {
   props: {
     recipe: { type: Object, required: true },
   },
+  emits: ["toggleRemove"],
   computed: {
     ...mapState(useUserStore, [
       "recipes",
@@ -21,6 +22,7 @@ export default {
     ...mapActions(useUserStore, ["setRecipes"]),
     deleteRecipe() {
       this.deleteUserRecipe(this.recipe);
+      this.$emit("toggle-remove", false);
     },
   },
 };

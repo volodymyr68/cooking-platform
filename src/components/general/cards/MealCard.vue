@@ -1,7 +1,7 @@
 <script>
-import SaveRecipeButton from "@/components/protected/buttons/SaveRecipeButton.vue";
-import RemoveRecipeButton from "@/components/protected/buttons/RemoveRecipeButton.vue";
-import OpenDetailsButton from "@/components/protected/buttons/OpenDetailsButton.vue";
+import SaveRecipeButton from "@/components/general/buttons/SaveRecipeButton.vue";
+import RemoveRecipeButton from "@/components/general/buttons/RemoveRecipeButton.vue";
+import OpenDetailsButton from "@/components/general/buttons/OpenDetailsButton.vue";
 import { mapActions, mapState } from "pinia";
 import { useApiStore } from "@/stores/apiStore.js";
 
@@ -11,6 +11,8 @@ export default {
     return {
       details: null,
       showDetails: false,
+      save: true,
+      remove: false,
     };
   },
   components: { OpenDetailsButton, RemoveRecipeButton, SaveRecipeButton },
@@ -21,10 +23,12 @@ export default {
     },
     saveButton: {
       type: Boolean,
+      required: true,
       default: true,
     },
     removeButton: {
       type: Boolean,
+      required: true,
       default: false,
     },
   },
@@ -42,6 +46,18 @@ export default {
   methods: {
     ...mapActions(useApiStore, ["fetchRecipeById"]),
 
+    setButtons() {
+      this.remove = this.removeButton;
+      this.save = this.saveButton;
+    },
+    handleToggleRemove() {
+      this.remove = false;
+      this.save = true;
+    },
+    handleToggleSave() {
+      this.remove = true;
+      this.save = false;
+    },
     async handleOpenDetails() {
       const response = await this.fetchRecipeById(this.meal.idMeal);
       console.log(response);
@@ -52,6 +68,9 @@ export default {
     closeDetails() {
       this.showDetails = false;
     },
+  },
+  created() {
+    this.setButtons();
   },
 };
 </script>
@@ -65,8 +84,16 @@ export default {
     </v-card-title>
 
     <v-card-actions class="meal-actions">
-      <SaveRecipeButton v-if="saveButton" :recipe="meal" />
-      <RemoveRecipeButton v-if="removeButton" :recipe="meal" />
+      <SaveRecipeButton
+          v-if="save"
+          :recipe="meal"
+          @toggle-save="handleToggleSave"
+      />
+      <RemoveRecipeButton
+          v-if="remove"
+          :recipe="meal"
+          @toggleRemove="handleToggleRemove"
+      />
       <OpenDetailsButton :id="meal.idMeal" @open-details="handleOpenDetails" />
     </v-card-actions>
 
@@ -106,57 +133,3 @@ export default {
     </v-dialog>
   </v-card>
 </template>
-
-<style scoped>
-.meal-card {
-  max-width: 300px;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  margin: 10px;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-.meal-img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-}
-
-.meal-title,
-.meal-subtitle,
-.meal-text,
-.meal-actions {
-  width: 100%;
-  text-align: center;
-}
-
-.meal-title {
-  font-size: 18px;
-  font-weight: bold;
-}
-
-.meal-subtitle {
-  font-size: 14px;
-  color: #757575;
-}
-
-.meal-text {
-  flex-grow: 1;
-  text-align: left;
-  margin-top: 10px;
-}
-
-.meal-actions {
-  margin-top: 10px;
-  justify-content: center;
-}
-
-.meal-card ul {
-  padding-left: 20px;
-  text-align: left;
-}
-</style>

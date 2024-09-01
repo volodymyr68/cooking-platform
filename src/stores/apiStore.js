@@ -12,6 +12,8 @@ export const useApiStore = defineStore("apiStore", {
         ingredientsMeal: "",
         areasMeal: "",
         mealDetails: "",
+        allPreferenceMeal: "",
+        benchRandomMeals: "",
     }),
     actions: {
         async fetchCategories() {
@@ -29,6 +31,11 @@ export const useApiStore = defineStore("apiStore", {
             this.ingredients = response.data.meals.map(
                 (ingredient) => ingredient.strIngredient,
             );
+        },
+        async fetchMealData() {
+            await this.fetchCategories();
+            await this.fetchAreas();
+            await this.fetchIngredients();
         },
         async fetchMealByCategory() {
             const userStore = useUserStore();
@@ -60,13 +67,42 @@ export const useApiStore = defineStore("apiStore", {
             }
             this.ingredientsMeal = mealList;
         },
+        async getAllMeal() {
+            await this.fetchMealByCategory();
+            await this.fetchMealByMainIngredient();
+            await this.fetchMealByArea();
+            this.allPreferenceMeal = [
+                ...this.categoryMeal.flat(),
+                ...this.areasMeal.flat(),
+                ...this.ingredientsMeal.flat(),
+            ];
+        },
         async randomMeal() {
             const response = await axiosInstance.get(`/random.php`);
-            return response.data.meals[0];
+            if (response?.data?.meals?.length) {
+                return response.data.meals[0];
+            } else {
+                throw new Error("Error fetching random meal");
+            }
+        },
+        async getBenchRandomMeals() {
+            this.benchRandomMeals = [];
+            const first = await this.randomMeal();
+            const second = await this.randomMeal();
+            const third = await this.randomMeal();
+            const fourth = await this.randomMeal();
+            const fifth = await this.randomMeal();
+            const sixth = await this.randomMeal();
+            this.benchRandomMeals = [first, second, third, fourth, fifth, sixth];
+            return this.benchRandomMeals;
         },
         async fetchRecipeById(id) {
             const response = await axiosInstance.get(`/lookup.php?i=${id}`);
-            this.mealDetails = response.data.meals[0];
+            if (response?.data?.meals?.length) {
+                this.mealDetails = response.data.meals[0];
+            } else {
+                throw new Error("Error fetching fetchRecipeById");
+            }
         },
     },
 });

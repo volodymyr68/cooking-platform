@@ -9,7 +9,7 @@ import router from './router';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { getFirestore } from "firebase/firestore";
-import './styles/app.css';
+import './styles/main.css'
 import useUserStore from "@/stores/userStore.js";
 
 const firebaseConfig = {

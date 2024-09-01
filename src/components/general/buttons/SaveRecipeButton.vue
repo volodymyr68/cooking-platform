@@ -5,6 +5,7 @@ import { useDbStore } from "@/stores/dbStore.js";
 
 export default {
   name: "SaveRecipeButton",
+  emits: ["toggleSave"],
   props: {
     recipe: { type: Object, required: true },
   },
@@ -27,6 +28,7 @@ export default {
           this.selectedIngredients,
           this.recipes,
       );
+      this.$emit("toggle-save", false);
     },
   },
 };

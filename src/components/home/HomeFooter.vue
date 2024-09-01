@@ -1,18 +1,17 @@
 <script>
-import "../../styles/home/home-footer.css";
 export default {
   name: "HomeFooter",
 };
 </script>
 
 <template>
-  <v-footer class="footer" padless>
+  <v-footer class="home-footer" padless>
     <v-col class="text-center" cols="12">
       <v-container>
         <v-row>
           <v-col>
-            <h2 class="footer-title">Free Recipe API Support</h2>
-            <p class="footer-text">
+            <h2 class="home-footer-title">Free Recipe API Support</h2>
+            <p class="home-footer-text">
               The API and site will always remain free at point of access. If
               you love our service and want extra features, you can sign up as a
               PayPal supporter. You can cancel anytime. This allows us to pay
@@ -22,8 +21,8 @@ export default {
         </v-row>
         <v-row>
           <v-col>
-            <h3 class="footer-subtitle">Test API Keys</h3>
-            <p class="footer-text">
+            <h3 class="home-footer-subtitle">Test API Keys</h3>
+            <p class="home-footer-text">
               You can use the test API key "1" during development of your app or
               for educational use (see test links below). However, you must
               become a supporter if releasing publicly on an app store. All data
@@ -34,8 +33,8 @@ export default {
         </v-row>
         <v-row>
           <v-col>
-            <h3 class="footer-subtitle">API Production Key Upgrade</h3>
-            <p class="footer-text">
+            <h3 class="home-footer-subtitle">API Production Key Upgrade</h3>
+            <p class="home-footer-text">
               All supporters have access to the beta version of the API, which
               allows multiple ingredient filters. You also get access to adding
               your own meals and images. You can also list the full database
@@ -45,8 +44,8 @@ export default {
           </v-col>
         </v-row>
       </v-container>
-      <v-divider></v-divider>
-      <p class="footer-bottom-text">
+      <v-divider class="home-footer-divider"></v-divider>
+      <p class="home-footer-bottom-text">
         &copy; 2024 Culinary Inspirations. All rights reserved.
       </p>
     </v-col>
