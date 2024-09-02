@@ -13,6 +13,11 @@ export default {
         signUp(auth, email, password) {
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
+                    this.$notify({
+                        title: "Signup successfully",
+                        duration: 3000,
+                        type: "success",
+                      });
                     const user = userCredential.user;
                     this.setUID(user.uid);
                     this.toggleLogin();
@@ -23,11 +28,22 @@ export default {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.log(errorMessage);
+                    this.$notify({
+                        title: "Error while signup",
+                        text:errorMessage,
+                        duration: 3000,
+                        type: "error",
+                      });
                 });
         },
         singIn(auth, email, password) {
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
+                    this.$notify({
+                        title: "Signin successfully",
+                        duration: 3000,
+                        type: "success",
+                      });
                     const user = userCredential.user;
                     this.setUID(user.uid);
                     this.toggleLogin();
@@ -37,11 +53,22 @@ export default {
                     const errorCode = error.code;
                     const errorMessage = error.message;
                     console.log(errorMessage);
+                    this.$notify({
+                        title: "Error while signin",
+                        text:errorMessage,
+                        duration: 3000,
+                        type: "error",
+                      });
                 });
         },
         logOut(auth) {
             signOut(auth)
                 .then(() => {
+                    this.$notify({
+                        title: "Logout",
+                        duration: 3000,
+                        type: "warn",
+                      });
                     this.$router.push("/");
                     this.toggleLogin();
                 })

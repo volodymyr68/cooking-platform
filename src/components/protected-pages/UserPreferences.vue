@@ -30,10 +30,15 @@ export default {
     ...mapActions(useDbStore, ["getUserById", "updateUserById"]),
     savePreferences() {
       this.updateUserById(
-          this.formSelectedCategories,
-          this.formSelectedAreas,
-          this.formSelectedIngredients,
+        this.formSelectedCategories,
+        this.formSelectedAreas,
+        this.formSelectedIngredients
       );
+      this.$notify({
+        title: "Preferences updated",
+        duration: 3000,
+        type: "success",
+      });
     },
     initializePreferences() {
       this.formSelectedCategories = this.selectedCategories;
@@ -59,33 +64,33 @@ export default {
       <v-card-text>
         <v-form>
           <v-select
-              v-model="formSelectedCategories"
-              :items="categories"
-              item-text="strCategory"
-              item-value="strCategory"
-              label="Select Categories"
-              multiple
-              chips
+            v-model="formSelectedCategories"
+            :items="categories"
+            item-text="strCategory"
+            item-value="strCategory"
+            label="Select Categories"
+            multiple
+            chips
           ></v-select>
 
           <v-select
-              v-model="formSelectedIngredients"
-              :items="ingredients"
-              item-text="strIngredient"
-              item-value="strIngredient"
-              label="Select Ingredients"
-              multiple
-              chips
+            v-model="formSelectedIngredients"
+            :items="ingredients"
+            item-text="strIngredient"
+            item-value="strIngredient"
+            label="Select Ingredients"
+            multiple
+            chips
           ></v-select>
 
           <v-select
-              v-model="formSelectedAreas"
-              :items="areas"
-              item-text="strArea"
-              item-value="strArea"
-              label="Select Areas"
-              multiple
-              chips
+            v-model="formSelectedAreas"
+            :items="areas"
+            item-text="strArea"
+            item-value="strArea"
+            label="Select Areas"
+            multiple
+            chips
           ></v-select>
 
           <v-btn @click="savePreferences" color="primary" class="mt-4">

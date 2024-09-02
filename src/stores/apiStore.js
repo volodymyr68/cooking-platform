@@ -87,13 +87,14 @@ export const useApiStore = defineStore("apiStore", {
         },
         async getBenchRandomMeals() {
             this.benchRandomMeals = [];
-            const first = await this.randomMeal();
-            const second = await this.randomMeal();
-            const third = await this.randomMeal();
-            const fourth = await this.randomMeal();
-            const fifth = await this.randomMeal();
-            const sixth = await this.randomMeal();
-            this.benchRandomMeals = [first, second, third, fourth, fifth, sixth];
+            for (let i = 0; i < 6; i++) {
+                const response = await this.randomMeal();
+                this.benchRandomMeals.push(response);
+                setTimeout(() => {
+                    console.log("Delayed for 1 second.");
+                  }, "100");
+            }
+            
             return this.benchRandomMeals;
         },
         async fetchRecipeById(id) {

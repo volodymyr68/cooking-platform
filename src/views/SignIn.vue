@@ -13,16 +13,9 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.errors.emailErrors = [];
-      this.errors.passwordErrors = [];
-
-      this.validateEmail(this.email);
-      this.validatePassword(this.password);
-
-      if (
-          this.errors.emailErrors.length === 0 &&
-          this.errors.passwordErrors.length === 0
-      ) {
+      this.setErrors();
+      this.validateSignIn(this.email,this.password);
+      if (this.isValidSignIn()) {
         this.singIn(auth, this.email, this.password);
       }
     },

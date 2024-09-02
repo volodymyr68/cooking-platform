@@ -63,5 +63,44 @@ export default {
                 this.errors.confirmPasswordErrors.push(ERRORS.CONFIRM_PASSWORD_MATCH);
             }
         },
+        setErrors(){
+            this.errors.firstNameErrors = [];
+            this.errors.lastNameErrors = [];
+            this.errors.emailErrors = [];
+            this.errors.passwordErrors = [];
+            this.errors.confirmPasswordErrors = [];
+        },
+        validateSignUp(firstName, lastName, email, password, confirmPassword){
+            this.validateFirstName(firstName);
+            this.validateLastName(lastName);
+            this.validateEmail(email);
+            this.validatePassword(password);
+            this.validateConfirmPassword(password, confirmPassword);
+        },
+        isValidSignUp(){
+            if (
+                this.errors.firstNameErrors.length === 0 &&
+                this.errors.lastNameErrors.length === 0 &&
+                this.errors.emailErrors.length === 0 &&
+                this.errors.passwordErrors.length === 0 &&
+                this.errors.confirmPasswordErrors.length === 0
+            ){
+                return true;
+            }
+            return false;
+        },
+        validateSignIn(email,password){
+            this.validateEmail(email);
+            this.validatePassword(password);
+        },
+        isValidSignIn(){
+            if (
+                this.errors.emailErrors.length === 0 &&
+                this.errors.passwordErrors.length === 0
+            ){
+                return true;
+            }
+            return false;
+        }
     },
 };

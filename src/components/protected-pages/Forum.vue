@@ -34,12 +34,16 @@ export default {
           <v-card-title>Welcome to the Forum!</v-card-title>
           <v-card-text>
             <v-text-field
-                v-model="text"
-                label="Enter your message"
-                outlined
-                dense
+              v-model="text"
+              label="Enter your message"
+              outlined
+              dense
             ></v-text-field>
-            <v-btn @click="addRecord" color="primary" :disabled="!text">
+            <v-btn
+              @click="addRecord"
+              color="primary"
+              :disabled="!text.trim() || forumInput.length > 0"
+            >
               Create Record
             </v-btn>
           </v-card-text>
@@ -54,13 +58,14 @@ export default {
             <v-container class="forum-container">
               <v-row>
                 <v-col
-                    cols="12"
-                    v-for="(record, index) in forumRecords"
-                    :key="index"
+                  cols="12"
+                  v-for="(record, index) in forumRecords"
+                  :key="index"
                 >
                   <v-card class="forum-message-card pa-3" elevation="2">
-                    <v-card-subtitle
-                    >{{
+                    <v-card-title>{{ record.name }}</v-card-title>
+                    <v-card-subtitle>
+                      {{
                         new Date(record.time.seconds * 1000).toLocaleString()
                       }}
                     </v-card-subtitle>

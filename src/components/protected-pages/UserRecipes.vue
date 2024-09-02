@@ -17,11 +17,11 @@ export default {
   <Pagination :items="recipes" v-if="recipes.length">
     <template v-slot:items="{ items }">
       <MealCard
-          v-for="meal in items"
-          :key="meal.idMeal"
-          :save-button="false"
-          :remove-button="true"
-          :meal="meal"
+        v-for="meal in items"
+        :key="meal.idMeal"
+        :save-button="false"
+        :remove-button="true"
+        :meal="meal"
       />
     </template>
   </Pagination>

@@ -21,25 +21,10 @@ export default {
   },
   methods: {
     handleSubmit() {
-      this.errors.firstNameErrors = [];
-      this.errors.lastNameErrors = [];
-      this.errors.emailErrors = [];
-      this.errors.passwordErrors = [];
-      this.errors.confirmPasswordErrors = [];
+      this.setErrors();
+      this.validateSignUp(this.firstName, this.lastName, this.email, this.password, this.confirmPassword);
 
-      this.validateFirstName(this.firstName);
-      this.validateLastName(this.lastName);
-      this.validateEmail(this.email);
-      this.validatePassword(this.password);
-      this.validateConfirmPassword(this.password, this.confirmPassword);
-
-      if (
-          this.errors.firstNameErrors.length === 0 &&
-          this.errors.lastNameErrors.length === 0 &&
-          this.errors.emailErrors.length === 0 &&
-          this.errors.passwordErrors.length === 0 &&
-          this.errors.confirmPasswordErrors.length === 0
-      ) {
+      if (this.isValidSignUp()) {
         this.signUp(auth, this.email, this.password);
       }
     },

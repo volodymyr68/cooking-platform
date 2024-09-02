@@ -100,10 +100,12 @@ export const useDbStore = defineStore("dbStore", {
             }
         },
         async createForumRecord(text) {
+            const userStore = useUserStore();
             try {
                 const docRef = await addDoc(collection(db, "forum"), {
                     text: text,
                     time: new Date(),
+                    name: userStore.firstName +" " + userStore.lastName,
                 });
                 console.log("Document written with ID: ", docRef.id);
             } catch (e) {

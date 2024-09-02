@@ -13,33 +13,33 @@ export default {
   <v-navigation-drawer floating permanent>
     <v-list density="compact" nav>
       <v-list-item
-          prepend-icon="mdi-view-dashboard"
-          title="Profile"
-          @click="selectView('Profile')"
+        prepend-icon="mdi-view-dashboard"
+        title="Profile"
+        @click="selectView('Profile')"
       >
       </v-list-item>
       <v-list-item
-          prepend-icon="mdi-RecipeFeed"
-          title="Recipe Feed"
-          @click="selectView('RecipeFeed')"
+        prepend-icon="mdi-RecipeFeed"
+        title="Recipe Feed"
+        @click="selectView('RecipeFeed')"
       >
       </v-list-item>
       <v-list-item
-          prepend-icon="mdi-forum"
-          title="Forum"
-          @click="selectView('Forum')"
+        prepend-icon="mdi-forum"
+        title="Forum"
+        @click="selectView('Forum')"
       >
       </v-list-item>
       <v-list-item
-          prepend-icon="mdi-random"
-          title="Random meal"
-          @click="selectView('RandMeal')"
+        prepend-icon="mdi-random"
+        title="Random meal"
+        @click="selectView('RandMeal')"
       >
       </v-list-item>
       <v-list-item
-          prepend-icon="mdi-recipe"
-          title="My recipes"
-          @click="selectView('Recipes')"
+        prepend-icon="mdi-recipe"
+        title="My recipes"
+        @click="selectView('Recipes')"
       >
       </v-list-item>
     </v-list>

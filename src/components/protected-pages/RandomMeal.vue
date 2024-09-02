@@ -32,18 +32,18 @@ export default {
   <v-container v-if="isLoaded">
     <v-row dense>
       <v-col
-          v-for="(meal, index) in benchRandomMeals"
-          :key="index"
-          cols="12"
-          md="6"
-          lg="4"
-          class="pa-1"
+        v-for="(meal, index) in benchRandomMeals"
+        :key="index"
+        cols="12"
+        md="6"
+        lg="4"
+        class="pa-1"
       >
         <MealCard
-            v-if="meal.idMeal"
-            :meal="meal"
-            :remove-button="false"
-            :save-button="true"
+          v-if="meal.idMeal"
+          :meal="meal"
+          :remove-button="false"
+          :save-button="true"
         />
       </v-col>
     </v-row>

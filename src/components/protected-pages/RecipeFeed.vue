@@ -37,21 +37,20 @@ export default {
 
 <template>
   <RingLoader :loading="!isLoaded" color="black" size="100px"></RingLoader>
-  <Pagination
-      :items="allPreferenceMeal"
-      v-if="isLoaded && allPreferenceMeal?.length"
-  >
-    <template v-slot:items="{ items }">
-      <MealCard
+  <div v-if="isLoaded">
+    <Pagination :items="allPreferenceMeal" v-if="allPreferenceMeal?.length">
+      <template v-slot:items="{ items }">
+        <MealCard
           v-for="meal in items"
           :key="meal.idMeal"
           :save-button="true"
           :remove-button="false"
           :meal="meal"
-      />
-    </template>
-  </Pagination>
-  <div v-else>
-    <p>No items found. Go to Profile</p>
+        />
+      </template>
+    </Pagination>
+    <div v-else>
+      <p>No items found. Go to Profile</p>
+    </div>
   </div>
 </template>

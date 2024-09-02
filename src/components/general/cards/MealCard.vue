@@ -36,11 +36,11 @@ export default {
     ...mapState(useApiStore, ["mealDetails"]),
     ingredients() {
       return Array.from({ length: 20 }, (_, i) => i + 1)
-          .map((i) => ({
-            name: this.meal[`strIngredient${i}`],
-            measure: this.meal[`strMeasure${i}`],
-          }))
-          .filter((ingredient) => ingredient.name && ingredient.name.trim());
+        .map((i) => ({
+          name: this.meal[`strIngredient${i}`],
+          measure: this.meal[`strMeasure${i}`],
+        }))
+        .filter((ingredient) => ingredient.name && ingredient.name.trim());
     },
   },
   methods: {
@@ -51,10 +51,22 @@ export default {
       this.save = this.saveButton;
     },
     handleToggleRemove() {
+      this.$notify({
+        title: "Success",
+        text: "Recipe removed successfully",
+        duration: 3000,
+        type: "error",
+      });
       this.remove = false;
       this.save = true;
     },
     handleToggleSave() {
+      this.$notify({
+        title: "Success",
+        text: "Recipe saved successfully",
+        duration: 3000,
+        type: "success",
+      });
       this.remove = true;
       this.save = false;
     },
@@ -85,14 +97,14 @@ export default {
 
     <v-card-actions class="meal-actions">
       <SaveRecipeButton
-          v-if="save"
-          :recipe="meal"
-          @toggle-save="handleToggleSave"
+        v-if="save"
+        :recipe="meal"
+        @toggle-save="handleToggleSave"
       />
       <RemoveRecipeButton
-          v-if="remove"
-          :recipe="meal"
-          @toggleRemove="handleToggleRemove"
+        v-if="remove"
+        :recipe="meal"
+        @toggleRemove="handleToggleRemove"
       />
       <OpenDetailsButton :id="meal.idMeal" @open-details="handleOpenDetails" />
     </v-card-actions>
@@ -104,9 +116,9 @@ export default {
         </v-card-title>
         <v-card-text>
           <v-img
-              :src="details.strMealThumb"
-              height="200px"
-              class="mb-4"
+            :src="details.strMealThumb"
+            height="200px"
+            class="mb-4"
           ></v-img>
           <p><strong>Category:</strong> {{ details.strCategory }}</p>
           <p><strong>Area:</strong> {{ details.strArea }}</p>

@@ -3,6 +3,8 @@ import { auth } from "@/main.js";
 import authMixin from "@/mixins/authMixin.js";
 import { mapActions, mapState } from "pinia";
 import useUserStore from "@/stores/userStore.js";
+
+
 export default {
   name: "App",
   methods: {
@@ -13,7 +15,7 @@ export default {
   },
   mixins: [authMixin],
   computed: {
-    ...mapState(useUserStore, ["isLoggedIn"]),
+    ...mapState(useUserStore, ["isLoggedIn"]),  
   },
 };
 </script>
@@ -60,4 +62,5 @@ export default {
       <router-view></router-view>
     </v-main>
   </v-app>
+  <Notifications position="bottom left"></Notifications>
 </template>

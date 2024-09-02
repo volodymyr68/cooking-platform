@@ -11,6 +11,7 @@ import { getAuth } from 'firebase/auth';
 import { getFirestore } from "firebase/firestore";
 import './styles/main.css'
 import useUserStore from "@/stores/userStore.js";
+import Notifications from '@kyvg/vue3-notification'
 
 const firebaseConfig = {
     apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -43,6 +44,7 @@ auth.onAuthStateChanged((user) => {
         app.use(pinia);
         app.use(router);
         app.use(vuetify);
+        app.use(Notifications);
 
         if(user){
             userStore.setUID(user.uid);
