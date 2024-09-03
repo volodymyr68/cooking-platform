@@ -75,7 +75,7 @@ export const useDbStore = defineStore("dbStore", {
                 });
                 await this.getUserById();
             } catch (e) {
-                console.log(e);
+                console.error(e);
             }
         },
         async deleteUserRecipe(recipe) {
@@ -96,7 +96,7 @@ export const useDbStore = defineStore("dbStore", {
                 });
                 await this.getUserById();
             } catch (e) {
-                console.log(e);
+                console.error(e);
             }
         },
         async createForumRecord(text) {
@@ -107,7 +107,6 @@ export const useDbStore = defineStore("dbStore", {
                     time: new Date(),
                     name: userStore.firstName +" " + userStore.lastName,
                 });
-                console.log("Document written with ID: ", docRef.id);
             } catch (e) {
                 console.error("Error adding document: ", e);
             }
@@ -117,7 +116,6 @@ export const useDbStore = defineStore("dbStore", {
             try {
                 const querySnapshot = await getDocs(collection(db, "forum"));
                 this.forumRecords = querySnapshot.docs.map((doc) => doc.data());
-                console.log("Forum records: ", this.forumRecords);
                 this.sortForumRecordsByTime();
             } catch (e) {
                 console.error("Error getting documents: ", e);
