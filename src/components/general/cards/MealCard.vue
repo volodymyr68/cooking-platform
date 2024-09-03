@@ -72,9 +72,7 @@ export default {
     },
     async handleOpenDetails() {
       const response = await this.fetchRecipeById(this.meal.idMeal);
-      console.log(response);
       this.details = this.mealDetails;
-      console.log("details", this.details);
       this.showDetails = true;
     },
     closeDetails() {

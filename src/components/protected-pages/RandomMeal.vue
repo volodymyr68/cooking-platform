@@ -21,7 +21,6 @@ export default {
   async mounted() {
     this.isLoaded = false;
     await this.getBenchRandomMeals();
-    console.log(this.benchRandomMeals);
     this.isLoaded = true;
   },
 };
@@ -38,7 +37,7 @@ export default {
         md="6"
         lg="4"
         class="pa-1"
-      >
+      > 
         <MealCard
           v-if="meal.idMeal"
           :meal="meal"

@@ -27,7 +27,6 @@ export default {
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    console.log(errorMessage);
                     this.$notify({
                         title: "Error while signup",
                         text:errorMessage,
@@ -52,7 +51,6 @@ export default {
                 .catch((error) => {
                     const errorCode = error.code;
                     const errorMessage = error.message;
-                    console.log(errorMessage);
                     this.$notify({
                         title: "Error while signin",
                         text:errorMessage,
@@ -73,7 +71,7 @@ export default {
                     this.toggleLogin();
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.error(error);
                 });
         },
     },

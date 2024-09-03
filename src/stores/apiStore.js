@@ -91,7 +91,7 @@ export const useApiStore = defineStore("apiStore", {
                 const response = await this.randomMeal();
                 this.benchRandomMeals.push(response);
                 setTimeout(() => {
-                    console.log("Delayed for 1 second.");
+                    console.error("Delayed for 1 second.");
                   }, "100");
             }
             

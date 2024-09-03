@@ -52,7 +52,6 @@ auth.onAuthStateChanged((user) => {
         if (user) {
             userStore.setLogin();
             userStore.toggleLogin();
-            console.log(userStore.isLoggedIn)
         } else {
             userStore.setLogin();
         }
