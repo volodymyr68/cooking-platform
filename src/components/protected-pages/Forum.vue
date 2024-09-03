@@ -42,7 +42,7 @@ export default {
             <v-btn
               @click="addRecord"
               color="primary"
-              :disabled="!text.trim() || forumInput.length > 0"
+              :disabled="text.trim()===''"
             >
               Create Record
             </v-btn>
